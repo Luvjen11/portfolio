@@ -14,7 +14,7 @@ const projects = [
     technologies: ["Java", "React js", "Springboot","MySQL"],
     github: "https://github.com/Luvjen11/Akuko-nke-Ndu",
     live: "https://akuko-nke-ndu.vercel.app",
-    details: 'Akụkọ means "story," and Ndụ means "life", in Igbo language. Together, it translates to "The Story of Life'
+     details: 'Akụkọ means "story," and Ndụ means "life", in Igbo language. Together, it translates to "The Story of Life"'
   },  
   {
     id: 2,
@@ -61,7 +61,7 @@ const hobbies = [
     description: "Telling stories through colour, curves, and quotes",
     image: "/images/illustration.png",
     details:
-      "I started digital illustration during lockdown, looking for a fun way to share motivational quotes that felt more *me*. What began as a side thing quickly became a way to express myself—mixing cute, clean visuals with meaningful messages. It’s my way of turning thoughts into art people can feel.",
+    "I started digital illustration during lockdown, looking for a fun way to share motivational quotes that felt more *me*. What began as a side thing quickly became a way to express myself—mixing cute, clean visuals with meaningful messages. It&apos;s my way of turning thoughts into art people can feel.",
   },
   // {
   //   id: 3,
@@ -135,7 +135,7 @@ export default function Home() {
           </h1>
 
           <p className="text-lg text-gray-700 mb-6">
-            I'm Jennifer Okeke — a full-stack developer with a soft spot for storytelling, culture, and side quests (both in code and in life). 
+            I&apos;m Jennifer Okeke — a full-stack developer with a soft spot for storytelling, culture, and side quests (both in code and in life). 
             I build digital things that feel personal, purposeful, and sometimes a little experimental.
           </p>
 
@@ -175,13 +175,13 @@ export default function Home() {
       {/* ===== ABOUT SECTION ===== */}
       <section id="about" className="py-16 px-4 bg-black text-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6 text-pink-400">Hi, I'm Jennifer Okeke</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-pink-400">Hi, I&apos;m Jennifer Okeke</h2>
           <p className="text-gray-300 mb-6">
-            I'm a full stack developer who enjoys building projects that feel good to use and make sense under the hood. 
+            I&apos;m a full stack developer who enjoys building projects that feel good to use and make sense under the hood. 
             I like mixing logic with a bit of art—and I always leave room for learning.
           </p>
           <p className="text-gray-600">
-            Outside the laptop life, I’m usually journaling ideas I may or may not finish, learning Igbo, crocheting, or playing my flute (badly, but with feeling) or learning a new hobby.
+            Outside the laptop life, I&apos;m usually journaling ideas I may or may not finish, learning Igbo, crocheting, or playing my flute (badly, but with feeling) or learning a new hobby.
           </p>
         </div>
       </section>
@@ -252,15 +252,15 @@ export default function Home() {
             <h3 className="text-2xl font-medium mb-4 text-pink-700">Building a Startup From Scratch</h3>
             
             <p className="text-gray-700 mb-6">
-              SelfSaga is my little rebellion against the hustle-noise and endless scrolling. It's a platform 
-              I'm slowly crafting to help people track their personal growth in a way that feels human and fun.
+              SelfSaga is my little rebellion against the hustle-noise and endless scrolling. It&apos;s a platform 
+              I&apos;m slowly crafting to help people track their personal growth in a way that feels human and fun.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div className="bg-pink-50 p-4 rounded-lg border-l-4 border-pink-400">
                 <h4 className="text-lg font-medium mb-2 text-pink-600">The Vision</h4>
                 <p className="text-gray-600">
-                  A digital space where self-growth doesn't feel like a chore. I want to make it easy for people 
+                  A digital space where self-growth doesn&apos;t feel like a chore. I want to make it easy for people  
                   to set goals, reflect, experiment, and grow—without the pressure to be perfect.
                 </p>
               </div>
@@ -335,7 +335,7 @@ export default function Home() {
       {/* ===== CONTACT SECTION ===== */}
       <section id="contact" className="py-16 px-4 bg-pink-100">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-8 text-pink-600">Let's Connect</h2>
+        <h2 className="text-3xl font-semibold mb-8 text-pink-600">Let&apos;s Connect</h2>
           
           <div className="bg-white p-6 rounded-lg shadow-md">
             <form className="space-y-4">
