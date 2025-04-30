@@ -25,17 +25,17 @@ const projects = [
     github: "https://github.com/Luvjen11/moviemuse",
     live: "https://moviemusee.vercel.app",
     details: "MovieMuse lets users add reviews to movies. I can save favorites, add movies and categories"
-  },  
-  {
-    id: 3,
-    title: "Task Management App",
-    description: "A productivity app for managing tasks and projects",
-    image: "/images/projects/taskapp.jpg",
-    technologies: ["React", "Firebase", "Material UI"],
-    github: "https://github.com/yourusername/taskapp",
-    live: "https://yourtaskapp.com",
-    details: "A task management application with features like task creation, categorization, due dates, and progress tracking."
-  }
+  } 
+  // {
+  //   id: 3,
+  //   title: "Task Management App",
+  //   description: "A productivity app for managing tasks and projects",
+  //   image: "/images/projects/taskapp.jpg",
+  //   technologies: ["React", "Firebase", "Material UI"],
+  //   github: "https://github.com/yourusername/taskapp",
+  //   live: "https://yourtaskapp.com",
+  //   details: "A task management application with features like task creation, categorization, due dates, and progress tracking."
+  // }
 ];
 
 const hobbies = [
