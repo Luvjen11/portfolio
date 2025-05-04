@@ -131,14 +131,14 @@ export default function Home() {
     // Send email using EmailJS
     emailjs
       .sendForm(
-        "service_2gbjkug",
+        "service_hjqg22i",
         "template_dj1ii0w",
         formRef.current,
         "YyVxyDggWNVExyUU4"
       )
       .then(
         (result) => {
-          console.log(result.text);
+          console.log("SUCCESS:", result.text);
           setFormStatus({ loading: false, success: true, error: false });
           // Reset form
           formRef.current.reset();
@@ -148,7 +148,7 @@ export default function Home() {
           }, 5000);
         },
         (error) => {
-          console.log(error.text);
+          console.error("FAILED:", error.text);
           setFormStatus({ loading: false, success: false, error: true });
         }
       );
