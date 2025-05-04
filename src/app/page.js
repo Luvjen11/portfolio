@@ -1,5 +1,6 @@
 "use client";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -120,6 +121,38 @@ const learningTopics = [
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedHobby, setSelectedHobby] = useState(null);
+  const [formStatus, setFormStatus] = useState({ loading: false, success: false, error: false });
+  const formRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormStatus({ loading: true, success: false, error: false });
+
+    // Send email using EmailJS
+    emailjs
+      .sendForm(
+        "service_2gbjkug",
+        "template_dj1ii0w",
+        formRef.current,
+        "YyVxyDggWNVExyUU4"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setFormStatus({ loading: false, success: true, error: false });
+          // Reset form
+          formRef.current.reset();
+          // Clear success message after 5 seconds
+          setTimeout(() => {
+            setFormStatus({ loading: false, success: false, error: false });
+          }, 5000);
+        },
+        (error) => {
+          console.log(error.text);
+          setFormStatus({ loading: false, success: false, error: true });
+        }
+      );
+  };
 
   return (
     <main className="bg-pink-50 text-gray-800">
@@ -127,7 +160,7 @@ export default function Home() {
       <section className="min-h-[80vh] flex flex-col justify-center items-center text-center px-4 bg-gradient-to-b from-pink-100 to-white">
         <div className="max-w-3xl mx-auto">
           <div className="relative w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden">
-            <Image src="/images/profile.jpg" alt="Profile" fill className="object-cover" />
+            <Image src="/images/profile.png" alt="Profile" fill className="object-cover" />
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-pink-600">
@@ -160,7 +193,7 @@ export default function Home() {
           </div>
           
           {/* Navigation */}
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-wrap justify-center gap-2 md:space-x-4">
             <Link href="#about" className="text-pink-600 hover:text-pink-800 font-medium">About</Link>
             <Link href="#skills" className="text-pink-600 hover:text-pink-800 font-medium">Skills</Link>
             <Link href="#projects" className="text-pink-600 hover:text-pink-800 font-medium">Projects</Link>
@@ -338,30 +371,49 @@ export default function Home() {
         <h2 className="text-3xl font-semibold mb-8 text-pink-600">Let&apos;s Connect</h2>
           
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <form className="space-y-4">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input 
                   type="text" 
+                  name="user_name"
                   placeholder="Name"
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 />
                 <input 
                   type="email" 
+                  name="user_email"
                   placeholder="Email"
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
                 />
               </div>
               <textarea 
+                name="message"
                 placeholder="Message"
                 rows="4" 
+                required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
               ></textarea>
               <button 
                 type="submit" 
-                className="bg-pink-600 text-white px-6 py-2 rounded-md hover:bg-pink-700 transition-colors"
+                disabled={formStatus.loading}
+                className={`bg-pink-600 text-white px-6 py-2 rounded-md hover:bg-pink-700 transition-colors ${formStatus.loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                Send Message
+                {formStatus.loading ? 'Sending...' : 'Send Message'}
               </button>
+              
+              {formStatus.success && (
+                <div className="mt-4 p-3 bg-green-100 text-green-700 rounded-md">
+                  Thank you for your message! I&apos;ll get back to you soon.
+                </div>
+              )}
+              
+              {formStatus.error && (
+                <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
+                  Something went wrong. Please try again or email me directly.
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -371,29 +423,29 @@ export default function Home() {
       {/* Project Modal */}
       {selectedProject && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-2 md:p-4"
           onClick={() => setSelectedProject(null)}
         >
           <div 
             className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-2xl font-semibold text-pink-700">{selectedProject.title}</h3>
-                <button onClick={() => setSelectedProject(null)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <h3 className="text-xl md:text-2xl font-semibold text-pink-700">{selectedProject.title}</h3>
+                <button onClick={() => setSelectedProject(null)} className="p-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
                 </button>
               </div>
               
-              <div className="relative h-64 w-full mb-4">
+              <div className="relative h-48 md:h-64 w-full mb-4">
                 <Image src={selectedProject.image} alt={selectedProject.title} fill className="object-cover rounded-lg" />
               </div>
               
-              <p className="text-gray-700 mb-4">{selectedProject.details}</p>
+              <p className="text-gray-700 mb-4 text-sm md:text-base">{selectedProject.details}</p>
               
               <div className="flex flex-wrap gap-2 mb-4">
                 {selectedProject.technologies.map(tech => (
@@ -403,12 +455,12 @@ export default function Home() {
                 ))}
               </div>
               
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-3 md:gap-4">
                 <a 
                   href={selectedProject.github} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700 transition-colors"
+                  className="bg-pink-600 text-white px-3 md:px-4 py-2 rounded-md hover:bg-pink-700 transition-colors text-sm md:text-base"
                 >
                   GitHub
                 </a>
@@ -416,7 +468,7 @@ export default function Home() {
                   href={selectedProject.live} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition-colors"
+                  className="bg-pink-500 text-white px-3 md:px-4 py-2 rounded-md hover:bg-pink-600 transition-colors text-sm md:text-base"
                 >
                   Live Demo
                 </a>
@@ -429,29 +481,29 @@ export default function Home() {
       {/* Hobby Modal */}
       {selectedHobby && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-2 md:p-4"
           onClick={() => setSelectedHobby(null)}
         >
           <div 
             className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               <div className="flex justify-between items-start mb-4">
-                <h3 className="text-2xl font-semibold text-pink-700">{selectedHobby.title}</h3>
-                <button onClick={() => setSelectedHobby(null)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <h3 className="text-xl md:text-2xl font-semibold text-pink-700">{selectedHobby.title}</h3>
+                <button onClick={() => setSelectedHobby(null)} className="p-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
                 </button>
               </div>
               
-              <div className="relative h-64 w-full mb-4">
+              <div className="relative h-48 md:h-64 w-full mb-4">
                 <Image src={selectedHobby.image} alt={selectedHobby.title} fill className="object-cover rounded-lg" />
               </div>
               
-              <p className="text-gray-700">{selectedHobby.details}</p>
+              <p className="text-gray-700 text-sm md:text-base">{selectedHobby.details}</p>
             </div>
           </div>
         </div>
